@@ -12,18 +12,31 @@
 .env
 .env.*
 *.env
+*.env.*
 *.pgpass
 *.pem
 *.key
 *.pfx
+*.p12
+*.jks
+*.keystore
+*.secret
+*.credentials
+*.local
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
 secrets/
-credentials*
+credentials
+credentials.*
 
 # ---- OS / editor cruft ----
 Thumbs.db
 Desktop.ini
 .DS_Store
 *.swp
+*.swo
 *~
 *.tmp
 *.orig
@@ -42,3 +55,7 @@ node_modules/
 dist/
 build/
 .cache/
+
+# ---- Local override of the compose file (keep secrets out) ----
+docker-compose.override.yml
+docker-compose.*.local.yml
