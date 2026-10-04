@@ -1,0 +1,44 @@
+# ============================================================
+#  solo-operator — projects root
+# ============================================================
+
+# ---- Nested project repositories (each has its own .git) ----
+# Excluding these prevents git from creating gitlinks/submodule
+# entries for repos that are versioned independently.
+/my-node-app/
+/csv-pipeline/
+
+# ---- Secrets / credentials (NEVER commit) ----
+.env
+.env.*
+*.env
+*.pgpass
+*.pem
+*.key
+*.pfx
+secrets/
+credentials*
+
+# ---- OS / editor cruft ----
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*~
+*.tmp
+*.orig
+*.rej
+
+# ---- Logs / runtime output ----
+*.log
+logs/
+tmp/
+temp/
+
+# ---- Language / build caches (root-level) ----
+__pycache__/
+*.py[cod]
+node_modules/
+dist/
+build/
+.cache/

@@ -1,0 +1,33 @@
+{
+  "name": "CSV Pipeline Watcher",
+  "schedule": {
+    "expr": "*/5 * * * *",
+    "kind": "cron",
+    "tz": "America/Chicago",
+    "description": "Every 5 minutes"
+  },
+  "metadata": {
+    "agent_config": {
+      "assistant_id": "bare:632f31d2",
+      "mode": "yolo",
+      "model": {
+        "model": "deepseek-v4-flash",
+        "provider_id": "b5bab726",
+        "use_model": null
+      },
+      "model_id": "gemini-3.6-flash",
+      "name": "Aion CLI",
+      "workspace": "C:\\"
+    },
+    "agent_type": "aionrs",
+    "created_by": "agent"
+  },
+  "target": {
+    "execution_mode": "new",
+    "payload": {
+      "kind": "message",
+      "text": "Check C:\\Users\\mufftop\\projects\\csv-pipeline\\incoming for new CSV files. If any exist, run the csv-pipeline.ps1 script in C:\\Users\\mufftop\\projects\\csv-pipeline to process them. After processing, archive or remove processed files."
+    }
+  },
+  "enabled": true
+}

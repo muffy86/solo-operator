@@ -1,0 +1,124 @@
+{
+  "folders": [
+    {
+      "path": "C:\\Users\\mufftop\\projects"
+    }
+  ],
+  "settings": {
+    "terminal.integrated.fontFamily": "'Cascadia Code PL', 'Fira Code', 'JetBrains Mono', Consolas",
+    "git.untrackedChanges": "separate",
+    "python.terminal.activateEnvironment": true,
+    "github.copilot.editor.enableCodeActions": true,
+    "terminal.integrated.fontSize": 13,
+    "editor.fontSize": 14,
+    "editor.guides.bracketPairs": "active",
+    "workbench.startupEditor": "none",
+    "extensions.autoCheckUpdates": true,
+    "workbench.colorCustomizations": {
+      "statusBar.foreground": "#e0e0e0",
+      "statusBar.background": "#1a1a2e"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "editor.renderWhitespace": "boundary",
+    "python.defaultInterpreterPath": "C:\\Users\\mufftop\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "github.copilot.enable": {
+      "*": true,
+      "yaml": true,
+      "plaintext": false,
+      "markdown": false
+    },
+    "files.exclude": {
+      "**/node_modules": false,
+      "**/Thumbs.db": true,
+      "**/.git": true,
+      "**/.DS_Store": true
+    },
+    "workbench.colorTheme": "GitHub Dark Default",
+    "git.confirmSync": false,
+    "emmet.includeLanguages": {
+      "typescript": "typescriptreact",
+      "javascript": "javascriptreact"
+    },
+    "[python]": {
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+      },
+      "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "errorLens.enabledDiagnosticLevels": [
+      "error",
+      "warning"
+    ],
+    "update.mode": "start",
+    "files.autoSaveDelay": 1000,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "editor.formatOnSave": true,
+    "editor.fontFamily": "'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace",
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "editor.minimap.enabled": false,
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "editor.fontLigatures": "'calt', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'ss09', 'ss20', 'zero'",
+    "extensions.autoUpdate": true,
+    "search.exclude": {
+      "**/.git": true,
+      "**/.next": true,
+      "**/__pycache__": true,
+      "**/build": true,
+      "**/bower_components": true,
+      "**/target": true,
+      "**/.venv": true,
+      "**/dist": true,
+      "**/node_modules": true
+    },
+    "files.autoSave": "afterDelay",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "errorLens.enabled": true,
+    "git.autofetch": true,
+    "editor.bracketPairColorization.enabled": true,
+    "explorer.compactFolders": false,
+    "git.enableSmartCommit": true,
+    "notebook.cellFocusIndicator": "border",
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "explorer.sortOrder": "type"
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.black-formatter",
+      "ms-python.isort",
+      "ms-python.flake8",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "bradlc.vscode-tailwindcss",
+      "eamodio.gitlens",
+      "github.copilot",
+      "github.copilot-chat",
+      "ms-vscode-remote.remote-containers",
+      "ms-vscode-remote.remote-wsl",
+      "tamasfe.even-better-toml",
+      "redhat.vscode-yaml",
+      "ms-azuretools.vscode-docker",
+      "yzhang.markdown-all-in-one",
+      "aaron-bond.better-comments",
+      "streetsidesoftware.code-spell-checker",
+      "christian-kohler.path-intellisense",
+      "mikestead.dotenv",
+      "gruntfuggly.todo-tree",
+      "mutantdino.resourcemonitor",
+      "ryanluker.vscode-coverage-gutters",
+      "vivaxy.vscode-conventional-commits",
+      "wakatime.vscode-wakatime"
+    ]
+  }
+}

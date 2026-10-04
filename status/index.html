@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Operator Status</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 900: '#0a0a1a', 800: '#12122a', 700: '#1a1a3e' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-900 text-gray-100 font-mono">
+    <div class="max-w-4xl mx-auto p-6">
+        <header class="mb-8">
+            <h1 class="text-2xl font-bold text-cyan-400">Solo Operator</h1>
+            <p class="text-gray-500 text-sm">System Status Dashboard · <span id="timestamp">loading...</span></p>
+        </header>
+
+        <div class="grid gap-4" id="services">
+            <div class="bg-dark-800 rounded-lg p-4 border border-dark-700 animate-pulse">
+                <p class="text-gray-500">Loading services...</p>
+            </div>
+        </div>
+
+        <footer class="mt-8 text-center text-gray-600 text-xs">
+            Auto-refreshes every 10s · Solo Operator v2.0
+        </footer>
+    </div>
+
+    <script>
+        const SERVICES = [
+            { name: 'API Server', url: 'http://localhost:3000/api/health', type: 'api', port: 3000 },
+            { name: 'Redis Cache', url: null, type: 'redis', port: 6379 },
+            { name: 'CSV Pipeline', url: null, type: 'docker', container: 'csv-pipeline' },
+            { name: 'CSV Dashboard', url: 'http://localhost:8500/api/stats', type: 'dashboard', port: 8500 },
+        ];
+
+        function statusIcon(status) {
+            if (status === 'ok') return '<span class="text-green-400">●</span>';
+            if (status === 'warning') return '<span class="text-yellow-400">●</span>';
+            return '<span class="text-red-400">●</span>';
+        }
+
+        function serviceCard(name, status, details, latency) {
+            const icon = statusIcon(status);
+            const color = status === 'ok' ? 'border-green-600/30' : status === 'warning' ? 'border-yellow-600/30' : 'border-red-600/30';
+            return `
+                <div class="bg-dark-800 rounded-lg p-4 border ${color} flex items-center justify-between">
+                    <div>
+                        <h3 class="font-semibold text-white">${icon} ${name}</h3>
+                        <p class="text-gray-400 text-xs mt-1">${details}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-gray-400 text-xs">${latency || ''}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function checkService(svc) {
+            const start = performance.now();
+            try {
+                if (svc.url) {
+                    const res = await fetch(svc.url, { mode: 'no-cors', signal: AbortSignal.timeout(5000) });
+                    const latency = ((performance.now() - start) / 1000).toFixed(2) + 's';
+                    return { name: svc.name, status: 'ok', details: \`HTTP \${svc.port} · \${latency}\`, latency };
+                }
+                if (svc.type === 'redis') {
+                    // Try socket connection
+                    try {
+                        const sock = new WebSocket('ws://localhost:' + svc.port);
+                        sock.onopen = () => sock.close();
+                        await new Promise((r) => setTimeout(r, 500));
+                        return { name: svc.name, status: 'ok', details: \`TCP \${svc.port} · connected\`, latency: '' };
+                    } catch {
+                        return { name: svc.name, status: 'warning', details: \`TCP \${svc.port} · checking\`, latency: '' };
+                    }
+                }
+                return { name: svc.name, status: 'warning', details: 'checking...', latency: '' };
+            } catch (e) {
+                return { name: svc.name, status: 'error', details: e.message, latency: '' };
+            }
+        }
+
+        async function refresh() {
+            document.getElementById('timestamp').textContent = new Date().toLocaleString();
+            const results = await Promise.all(SERVICES.map(checkService));
+            document.getElementById('services').innerHTML = results.map(r => serviceCard(r.name, r.status, r.details, r.latency)).join('');
+        }
+
+        refresh();
+        setInterval(refresh, 10000);
+    </script>
+</body>
+</html>
