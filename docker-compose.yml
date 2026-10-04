@@ -111,8 +111,10 @@ services:
     volumes:
       - ./csv-pipeline/incoming:/app/incoming
       - ./csv-pipeline/processed:/app/processed
+      - ./csv-pipeline/archive:/app/archive
     environment:
       - PYTHONUNBUFFERED=1
+      - DATA_DIR=/app
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8500/api/stats')"]
