@@ -26,7 +26,7 @@
     "execution_mode": "new",
     "payload": {
       "kind": "message",
-      "text": "Check C:\\Users\\mufftop\\projects\\csv-pipeline\\incoming for new CSV files. If any exist, run the csv-pipeline.ps1 script in C:\\Users\\mufftop\\projects\\csv-pipeline to process them. After processing, archive or remove processed files."
+      "text": "Check C:\\Users\\mufftop\\code\\active\\solo-operator\\csv-pipeline\\incoming for new CSV files. If any exist, run the csv-pipeline.ps1 script in C:\\Users\\mufftop\\code\\active\\solo-operator\\csv-pipeline to process them. After processing, archive or remove processed files."
     }
   },
   "enabled": true

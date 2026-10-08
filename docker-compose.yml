@@ -6,7 +6,7 @@ services:
     build: ./my-node-app
     container_name: my-node-app
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     env_file: ./my-node-app/.env
     environment:
       - NODE_ENV=production
@@ -42,7 +42,7 @@ services:
     image: redis:7-alpine
     container_name: my-node-redis
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -107,7 +107,7 @@ services:
     build: ./csv-pipeline/dashboard
     container_name: csv-dashboard
     ports:
-      - "8500:8500"
+      - "127.0.0.1:8500:8500"
     volumes:
       - ./csv-pipeline/incoming:/app/incoming
       - ./csv-pipeline/processed:/app/processed
@@ -143,7 +143,7 @@ services:
     image: nginx:latest
     container_name: solo-status
     ports:
-      - "8080:80"
+      - "127.0.0.1:8080:80"
     volumes:
       - ./status:/usr/share/nginx/html:ro
     restart: unless-stopped

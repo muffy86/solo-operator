@@ -14,7 +14,7 @@ param(
     [string]$Command = 'all'
 )
 
-$PROJECTS = "C:\Users\mufftop\projects"
+$PROJECTS = "C:\Users\mufftop\code\active\solo-operator"
 
 function Write-Step($msg) { Write-Host "`n[>] $msg" -ForegroundColor Yellow }
 function Write-Ok($msg)   { Write-Host "  v $msg" -ForegroundColor Green }
