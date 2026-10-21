@@ -1,0 +1,67 @@
+name: solo-operator validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: my-node-app/package-lock.json
+
+      - name: Install Node dependencies
+        working-directory: my-node-app
+        run: npm ci --ignore-scripts
+
+      - name: Audit production Node dependencies
+        working-directory: my-node-app
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Run Node tests
+        working-directory: my-node-app
+        run: npm test -- --runInBand
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: csv-pipeline/dashboard/requirements.txt
+
+      - name: Run Python tests
+        working-directory: csv-pipeline
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt pytest pytest-cov
+          python -m pytest -q -o addopts=''
+
+      - name: Configure Compose environment
+        shell: bash
+        run: printf 'REDIS_PASSWORD=%s\n' 'ci-only-random-secret-32-characters' > .env
+
+      - name: Validate Compose
+        run: docker compose config --quiet
+
+      - name: Build images
+        run: docker compose build --pull api pipeline dashboard
+
+      - name: Check image users
+        shell: bash
+        run: |
+          test "$(docker image inspect solo-operator-api --format '{{.Config.User}}')" = node
+          test "$(docker image inspect solo-operator-pipeline --format '{{.Config.User}}')" = app
+          test "$(docker image inspect solo-operator-dashboard --format '{{.Config.User}}')" = app
